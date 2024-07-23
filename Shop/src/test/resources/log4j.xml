@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration resource="org/spring/framework/boot/logging/logback/base.xml">
+
+<root>
+	<priority value="info"/>
+	<appender-ref ref="console"></appender-ref>
+</root>
+	
+	<!-- Application Loggers -->
+	<logger name="jdbc.sqlonly" additivity="false">
+		<level value="info" />
+		<appender-ref ref="console"/>
+	</logger>
+	<logger name="jdbc.sqltiming" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console"/>
+	</logger>
+	<logger name="jdbc.audit" additivity="false">
+		<level value="warn" />
+		<appender-ref ref="console"/>
+	</logger>
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="warn" />
+	</logger>
+	<logger name="jdbc.resulttable" additivity="false">
+		<level value="info" />
+	</logger>
+</configuration>
