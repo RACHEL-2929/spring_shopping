@@ -3,17 +3,21 @@ package com.vam.controller;
 import java.util.Random;
 
 import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.vam.model.MemberVO;
 import com.vam.service.MemberService;
@@ -27,6 +31,9 @@ public class MemberController {
 	
 	@Autowired
 	private JavaMailSender mailSender;
+	
+	@Autowired
+	private BCryptPasswordEncoder pwEncoder;
 	
 	private static final Logger logger = LoggerFactory.getLogger(ShoppingController.class);
 
@@ -42,9 +49,20 @@ public class MemberController {
 	
 	@PostMapping("join")
 	public String joinPOST(MemberVO member) throws Exception {
-		logger.info("join 진입");
+		/*
+		 * logger.info("join 진입"); memberService.memberJoin(member);
+		 * logger.info("join Service 성공");
+		 */
+		
+		String rawPw="";
+		String encodePw = "";
+		
+		rawPw = member.getMemberPw();
+		encodePw = pwEncoder.encode(rawPw);
+		member.setMemberPw(encodePw);
+		
 		memberService.memberJoin(member);
-		logger.info("join Service 성공");
+		
 		return "redirect:/main";
 		
 	}
@@ -65,7 +83,7 @@ public class MemberController {
 	
 	@GetMapping("/mailCheck")
 	@ResponseBody
-	public void mailCheckGET(String email) {
+	public String mailCheckGET(String email) {
 		// 뷰로부터 넘어온 데이터 확인
 		logger.info("이메일 데이터 전송 확인");
 		logger.info("이메일 : " + email);
@@ -96,5 +114,43 @@ public class MemberController {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		String num = Integer.toString(checkNum);
+		return num;
+	}
+	
+	@PostMapping("/login")
+	public String loginPOST(HttpServletRequest request, MemberVO member, RedirectAttributes rttr) throws Exception{
+		/*
+		 * System.out.println("login 메서도 진입"); System.out.println("전달된 데이터 : " +
+		 * member);
+		 */
+		
+		HttpSession session = request.getSession();
+		String rawPw = "";
+		String encodePw = "";
+		
+		MemberVO lvo = memberService.memberLogin(member);
+		if(lvo != null) {
+			
+			rawPw = member.getMemberPw();
+			encodePw = lvo.getMemberPw();
+			
+			if(pwEncoder.matches(rawPw, encodePw)==true) {
+				lvo.setMemberPw("");
+				session.setAttribute("member", lvo);
+				return "redirect:/main";
+			}else {
+				rttr.addFlashAttribute("result", 0);
+				return "redirect:/member/login";
+			}
+			
+		}else {
+			rttr.addFlashAttribute("result", 0);
+			return "redirect:/member/login";
+			
+		}
+		
+		
 	}
 }

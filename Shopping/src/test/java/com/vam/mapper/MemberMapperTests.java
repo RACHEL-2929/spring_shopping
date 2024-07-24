@@ -24,11 +24,20 @@ public class MemberMapperTests {
 	 */
 	
 	//아이디 중복검사
+	/*
+	 * @Test public void memberIdChk() { String id = "test"; String id2 = "2222";
+	 * membermapper.idCheck(id); membermapper.idCheck(id2); }
+	 */
+	
+	//로그인 쿼리 테스트
 	@Test
-	public void memberIdChk() {
-		String id = "test";
-		String id2 = "2222";
-		membermapper.idCheck(id);
-		membermapper.idCheck(id2);
+	public void memberLogin() {
+		MemberVO member = new MemberVO();
+		member.setMemberId("test");
+		member.setMemberPw("test");
+		
+		
+		System.out.println("결과 : " + membermapper.memberLogin(member));
+		
 	}
 }
