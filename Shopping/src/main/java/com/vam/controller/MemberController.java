@@ -153,4 +153,14 @@ public class MemberController {
 		
 		
 	}
+	
+	@GetMapping("/logout.do")
+	public String logoutMainGET(HttpServletRequest request) {
+		logger.info("logoutMainGET() 메서드 진입");
+		
+		
+		request.getSession().invalidate();
+		
+		return "redirect:/main";
+	}
 }
