@@ -5,7 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/admin/main.css">
+<link rel="stylesheet" href="../resources/css/admin/goodsEnroll.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 </head>
@@ -13,7 +13,7 @@
  
     <%@include file="../includes/admin/header.jsp" %>
                 <div class="admin_content_wrap">
-                    <div>관리자 페이지 입니다.</div>
+                    <div class="admin_content_subject"><span>상품 등록</span></div>
                 </div>
     <%@include file="../includes/admin/footer.jsp" %>
  
