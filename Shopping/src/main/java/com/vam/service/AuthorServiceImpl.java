@@ -37,4 +37,18 @@ public class AuthorServiceImpl implements AuthorService{
         return authorMapper.authorGetTotal(cri);
 	}
 
+	@Override
+	public AuthorVO authorGetDetail(int authorId) {
+		log.info("(service)authorGetDetail()......." + authorId);
+		return authorMapper.authorGetDetail(authorId);
+	}
+
+	@Override
+	public int authorModify(AuthorVO author) {
+		log.info("(service)authorModify()......." + author);
+		return authorMapper.authorModify(author);
+	}
+	
+	
+
 }

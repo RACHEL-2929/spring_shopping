@@ -14,10 +14,10 @@ import com.vam.model.Criteria;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("file:src/main/webapp/WEB-INF/spring/root-context.xml")
 public class AuthorMapperTests {
-	
+
 	@Autowired
 	private AuthorMapper authorMapper;
-	
+
 	/*
 	 * @Test public void authorEnroll() {
 	 * 
@@ -27,7 +27,7 @@ public class AuthorMapperTests {
 	 * 
 	 * authorMapper.authorEnroll(author); }
 	 */
-	
+
 	/* 작가 목록 테스트 */
 	/*
 	 * @Test public void authorGetListTest() throws Exception{
@@ -41,17 +41,49 @@ public class AuthorMapperTests {
 	 * 
 	 * }
 	 */
+
+	/*
+	 * 작가 총 수
+	 * 
+	 * @Test public void authorGetTotalTest() {
+	 * 
+	 * Criteria cri = new Criteria(); cri.setKeyword("폴");
+	 * 
+	 * int total = authorMapper.authorGetTotal(cri);
+	 * 
+	 * System.out.println("total......." + total); }
+	 */
+
+	/*
+	 * 작가 상세 페이지
+	 * 
+	 * @Test public void authorGetDetailTest() {
+	 * 
+	 * int authorId = 30;
+	 * 
+	 * AuthorVO author = authorMapper.authorGetDetail(authorId);
+	 * 
+	 * System.out.println("author......." + author);
+	 * 
+	 * }
+	 */
 	
-	/*작가 총 수*/
+	/* 작가 정보 수정 */
 	@Test
-	public void authorGetTotalTest() {
+	public void authorModifyTest() {
 		
-		Criteria cri = new Criteria();
-		cri.setKeyword("폴");
+		AuthorVO author = new AuthorVO();
+				
+		author.setAuthorId(1);
+		System.out.println("수정 전...................." + authorMapper.authorGetDetail(author.getAuthorId()));
 		
-		int total = authorMapper.authorGetTotal(cri);
+		author.setAuthorName("수정");
+		author.setNationId("01");
+		author.setAuthorIntro("소개 수정 하였습니다.");
 		
-		System.out.println("total......." + total);
+		authorMapper.authorModify(author);
+		System.out.println("수정 후...................." + authorMapper.authorGetDetail(author.getAuthorId()));
+		
 	}
 
 }

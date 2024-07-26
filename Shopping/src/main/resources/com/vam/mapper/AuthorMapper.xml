@@ -41,7 +41,18 @@
 		<if test="keyword != null">
 			WHERE AUTHORNAME LIKE '%'||#{keyword}||'%'
 		</if>    
-    
     </select>
+    
+    <select id="authorGetDetail" resultType="com.vam.model.AuthorVO">
+    	SELECT *
+    	FROM VAM_AUTHOR
+    	WHERE AUTHORID = #{authorId}
+    </select>
+    
+    <update id="authorModify" parameterType="com.vam.model.AuthorVO">
+    	UPDATE VAM_AUTHOR
+    	SET AUTHORNAME = #{authorName}, NATIONID = #{nationId}, AUTHORINTRO = #{authorIntro}, UPDATEDATE = SYSDATE
+    	WHERE AUTHORID = #{authorId}
+    </update>
       
   </mapper>
