@@ -5,14 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link rel="stylesheet" href="../resources/css/admin/goodsEnroll.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.js" charset = "UTF-8"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"/>
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<link rel="stylesheet" href="../resources/css/admin/goodsEnroll.css"/>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.ckeditor.com/ckeditor5/26.0.0/classic/ckeditor.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.8.18/themes/base/jquery-ui.css" />
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="//code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
 </head>
 <body>
  
@@ -127,7 +125,6 @@
 	 	e.preventDefault();
 	 	
 	 	enrollForm.submit();
-	 	
 	 });
 	 
 	 /* 위지윅 적용 */
@@ -145,13 +142,16 @@
 		.catch(error=>{
 			console.error(error);
 		});
+
 		
+		/* 캘린더 위젯 적용 */
+
 		/* 설정 */
 		const config = {
 			dateFormat: 'yy-mm-dd',
 			showOn : "button",
 			buttonText:"날짜 선택",
-			prevText: '이전 달',
+		    prevText: '이전 달',
 		    nextText: '다음 달',
 		    monthNames: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
 		    monthNamesShort: ['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월'],
@@ -159,13 +159,13 @@
 		    dayNamesShort: ['일','월','화','수','목','금','토'],
 		    dayNamesMin: ['일','월','화','수','목','금','토'],
 		    yearSuffix: '년',
-		    changeMonth: true,
+	        changeMonth: true,
 	        changeYear: true
-
 		}
-		
+
+		/* 캘린더 */
 		$(function() {
-			  $("input[name='publeYear']").datepicker(config);
+		  $( "input[name='publeYear']" ).datepicker(config);
 		});
  
  </script>
