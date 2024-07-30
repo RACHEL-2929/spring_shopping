@@ -28,5 +28,11 @@
 			#{bookIntro},
 			#{bookContents})
 	</insert>
+	
+	<select id="cateList" resultType="com.vam.model.CateVO">
+		SELECT *
+		FROM VAM_BCATE
+		ORDER BY CATECODE
+	</select>
 
   </mapper>
